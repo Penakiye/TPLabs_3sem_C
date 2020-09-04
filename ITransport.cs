@@ -2,7 +2,7 @@
 
 namespace WindowsFormsBomber
 {
-    interface ITransport
+    public interface ITransport
     {
         /// <summary>
         /// Установка позиции транспорта

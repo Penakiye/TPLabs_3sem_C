@@ -13,7 +13,7 @@ namespace WindowsFormsBomber
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormWarPlane());
+            Application.Run(new FormHangar());
         }
     }
 }
