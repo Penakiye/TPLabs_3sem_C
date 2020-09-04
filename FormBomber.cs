@@ -4,50 +4,56 @@ using System.Windows.Forms;
 
 namespace WindowsFormsBomber
 {
-    public partial class FormBomber : Form
+    public partial class FormWarPlane : Form
     {
-        private Bomber bomber;
-        public FormBomber()
+        private ITransport warTransport;
+
+        public FormWarPlane()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Метод отрисовки бомбардировщика
-        /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxBomber.Width, pictureBoxBomber.Height);
+            Bitmap bmp = new Bitmap(pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            bomber.DrawBomber(gr);
-            pictureBoxBomber.Image = bmp;
+            warTransport.DrawWarPlane(gr);
+            pictureBoxWarPlane.Image = bmp;
         }
 
-        private void ButtonCreate_Click(object sender, EventArgs e)
+        private void ButtonCreateWarPlane_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            bomber = new Bomber(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Green, Color.Brown, true, true, true);
-            bomber.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxBomber.Width, pictureBoxBomber.Height);
+            warTransport = new WarPlane(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Green);
+            warTransport.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
             Draw();
         }
 
-        private void buttonMove_Click(object sender, EventArgs e)
+        private void ButtonCreateBomber_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            warTransport = new Bomber(rnd.Next(100, 300), rnd.Next(100, 300), Color.Green, Color.Yellow, true, true, true);
+            warTransport.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
+            Draw();
+        }
+
+        private void ButtonMove_Click(object sender, EventArgs e)
         {
             //получаем имя кнопки
             string name = (sender as Button).Name;
             switch (name)
             {
                 case "buttonUp":
-                    bomber.MoveTransport(Direction.Up);
+                    warTransport.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    bomber.MoveTransport(Direction.Down);
+                    warTransport.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    bomber.MoveTransport(Direction.Left);
+                    warTransport.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
-                    bomber.MoveTransport(Direction.Right);
+                    warTransport.MoveTransport(Direction.Right);
                     break;
             }
             Draw();
