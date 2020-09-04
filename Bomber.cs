@@ -48,7 +48,7 @@ namespace WindowsFormsBomber
 
             if (Emblem)
             {
-                Brush emblem = new SolidBrush(Color.Red);
+                Brush emblem = new SolidBrush(DopColor);
                 g.FillEllipse(emblem, _startPosX + 45, _startPosY + 50, 10, 10);
                 g.DrawEllipse(pen, _startPosX + 45, _startPosY + 50, 10, 10);
 
