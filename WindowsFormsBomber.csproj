@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0DAAB633-713B-4128-B1CB-88E6E1D5B8B9}</ProjectGuid>
+    <ProjectGuid>{584FEE6F-655A-407E-86A5-B3C108ECB073}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WindowsFormsBomber</RootNamespace>
     <AssemblyName>WindowsFormsBomber</AssemblyName>
@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirTransport.cs" />
     <Compile Include="Bomber.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="FormBomber.cs">
@@ -54,8 +55,10 @@
     <Compile Include="FormBomber.Designer.cs">
       <DependentUpon>FormBomber.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITransport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WarPlane.cs" />
     <EmbeddedResource Include="FormBomber.resx">
       <DependentUpon>FormBomber.cs</DependentUpon>
     </EmbeddedResource>
