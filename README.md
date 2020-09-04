@@ -1,1 +1,0 @@
-# PIbd_21_Aleksandrova_VE_CSharp
