@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace WindowsFormsBomber
 {
@@ -7,6 +8,12 @@ namespace WindowsFormsBomber
         protected const int warPlaneWidth = 100;
         protected const int warPlaneHeight = 80;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="maxSpeed">Максимальная скорость</param>
+        /// <param name="weight">Вес военного самолета</param>
+        /// <param name="mainColor">Основной цвет</param>
         public WarPlane(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
@@ -14,6 +21,20 @@ namespace WindowsFormsBomber
             MainColor = mainColor;
         }
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public WarPlane(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
         public override void DrawWarPlane(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -65,6 +86,11 @@ namespace WindowsFormsBomber
                         _startPosY += step;
                     break;
             }
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
     }
 }
