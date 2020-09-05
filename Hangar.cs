@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -83,6 +83,7 @@ namespace WindowsFormsBomber
             }
             return null;
         }
+
         /// <summary>
         /// Метод проверки заполнености парковочного места
         /// </summary>
@@ -104,6 +105,7 @@ namespace WindowsFormsBomber
             for (int i = 0; i < keys.Count; i++)
                 _places[keys[i]].DrawWarPlane(g);
         }
+
         /// <summary>
         /// Метод отрисовки разметки парковочных мест
         /// </summary>
@@ -120,5 +122,30 @@ namespace WindowsFormsBomber
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 450);
             }
         }
+
+        /// <summary>
+        /// Индексатор
+        /// </summary>
+        /// <param name="ind"></param>
+        /// <returns></returns>
+        public T this[int ind]
+        {
+            get
+            {
+                if (_places.ContainsKey(ind))
+                    return _places[ind];
+                return null;
+            }
+            set
+            {
+                if (CheckFreePlace(ind))
+                {
+                    _places.Add(ind, value);
+                    _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5
+                    * _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                }
+            }
+        }
+
     }
 }

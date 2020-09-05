@@ -76,6 +76,11 @@ namespace WindowsFormsBomber
             Draw();
         }
 
+        /// <summary>
+        /// Обработка нажатия кнопки "Посадить военный самолет"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSetWarPlane_Click(object sender, EventArgs e)
         {
             form = new FormWarPlaneConfig();
@@ -96,6 +101,41 @@ namespace WindowsFormsBomber
                     Draw();
                 else
                     MessageBox.Show("Самолет не удалось посадить");
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (hangar.SaveData(saveFileDialog.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (hangar.LoadData(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Draw();
             }
         }
     }
