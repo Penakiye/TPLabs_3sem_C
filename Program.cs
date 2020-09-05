@@ -3,7 +3,8 @@ using System.Windows.Forms;
 
 namespace WindowsFormsBomber
 {
-    static class Program
+    public delegate void warPlaneDelegate(ITransport warPlane);
+    public static class Program
     {
         /// <summary>
         /// Главная точка входа для приложения.

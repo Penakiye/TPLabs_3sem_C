@@ -11,6 +11,10 @@ namespace WindowsFormsBomber
         /// </summary>
         MultiLevelHangar hangar;
         /// <summary>
+        /// Форма для добавления
+        /// </summary>
+        FormWarPlaneConfig form;
+        /// <summary>
         /// Количество уровней-ангаров
         /// </summary>
         private const int countLevel = 5;
@@ -40,52 +44,6 @@ namespace WindowsFormsBomber
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Посадить военный самолет"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonSetWarPlane_Click(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    var warPlane = new WarPlane(100, 1000, dialog.Color);
-                    int place = hangar[listBoxLevels.SelectedIndex] + warPlane;
-                    if (place == -1)
-                        MessageBox.Show("Нет свободных мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Draw();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Обработка нажатия кнопки "Посадить бомбардировщик"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonSetBomber_Click(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var bomber = new Bomber(100, 1000, dialog.Color, dialogDop.Color, true, true, true);
-                        int place = hangar[listBoxLevels.SelectedIndex] + bomber;
-                        if (place == -1)
-                            MessageBox.Show("Нет свободных мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Draw();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Обработка нажатия кнопки "Забрать"
         /// </summary>
         /// <param name="sender"></param>
@@ -93,7 +51,6 @@ namespace WindowsFormsBomber
         private void ButtonGetWarPlane_Click(object sender, EventArgs e)
         {
             if (listBoxLevels.SelectedIndex > -1)
-            {
                 if (maskedTextBoxPlace.Text != "")
                 {
                     var warPlane = hangar[listBoxLevels.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
@@ -112,12 +69,34 @@ namespace WindowsFormsBomber
                     }
                     Draw();
                 }
-            }
         }
 
         private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void buttonSetWarPlane_Click(object sender, EventArgs e)
+        {
+            form = new FormWarPlaneConfig();
+            form.AddEvent(AddWarPlane);
+            form.Show();
+        }
+
+        /// <summary>
+        /// Метод добавления самолета
+        /// </summary>
+        /// <param name="warPlane"></param>
+        private void AddWarPlane(ITransport warPlane)
+        {
+            if (warPlane != null && listBoxLevels.SelectedIndex > -1)
+            {
+                int place = hangar[listBoxLevels.SelectedIndex] + warPlane;
+                if (place > -1)
+                    Draw();
+                else
+                    MessageBox.Show("Самолет не удалось посадить");
+            }
         }
     }
 }
