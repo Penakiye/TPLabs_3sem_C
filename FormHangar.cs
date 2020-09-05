@@ -124,6 +124,10 @@ namespace WindowsFormsBomber
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     logger.Error(ex.Message);
                 }
+                catch (HangarAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка",
@@ -177,6 +181,18 @@ namespace WindowsFormsBomber
                 }
                 Draw();
             }
+        }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Сортировка"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            hangar.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
         }
     }
 }

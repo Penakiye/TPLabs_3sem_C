@@ -73,22 +73,13 @@ namespace WindowsFormsBomber
                 {
                     //Начинаем уровень
                     sw.WriteLine("Level");
-                    for (int i = 0; i < countPlaces; i++)
+                    foreach (ITransport warPlane in level)
                     {
-                        try
-                        {
-                            var plane = level[i];
-                            //если место не пустое, то записываем тип самолета
-                            if (plane.GetType().Name == "WarPlane")
-                                sw.Write(i + ":WarPlane:");
-                            if (plane.GetType().Name == "Bomber")
-                                sw.Write(i + ":Bomber:");
-                            sw.WriteLine(plane);
-                        }
-                        catch
-                        {
-                            break;
-                        }
+                        if (warPlane.GetType().Name == "WarPlane")
+                            sw.Write(level.GetKey + ":Car:");
+                        if (warPlane.GetType().Name == "Bomber")
+                            sw.Write(level.GetKey + ":Bomber:");
+                        sw.WriteLine(warPlane);
                     }
                 }
             }
@@ -142,6 +133,14 @@ namespace WindowsFormsBomber
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Сортировка уровней
+        /// </summary>
+        public void Sort()
+        {
+            hangarStages.Sort();
         }
     }
 }
