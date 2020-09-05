@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.pictureBoxHangar = new System.Windows.Forms.PictureBox();
-            this.buttonSetWarPlane = new System.Windows.Forms.Button();
-            this.buttonSetBomber = new System.Windows.Forms.Button();
             this.groupBoxGetWarPlane = new System.Windows.Forms.GroupBox();
             this.pictureBoxWarPlane = new System.Windows.Forms.PictureBox();
             this.buttonGetWarPlane = new System.Windows.Forms.Button();
@@ -38,6 +36,7 @@
             this.maskedTextBoxPlace = new System.Windows.Forms.MaskedTextBox();
             this.labelLevels = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
+            this.buttonSetWarPlane = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHangar)).BeginInit();
             this.groupBoxGetWarPlane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarPlane)).BeginInit();
@@ -52,28 +51,6 @@
             this.pictureBoxHangar.TabIndex = 0;
             this.pictureBoxHangar.TabStop = false;
             // 
-            // buttonSetWarPlane
-            // 
-            this.buttonSetWarPlane.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSetWarPlane.Location = new System.Drawing.Point(865, 160);
-            this.buttonSetWarPlane.Name = "buttonSetWarPlane";
-            this.buttonSetWarPlane.Size = new System.Drawing.Size(137, 48);
-            this.buttonSetWarPlane.TabIndex = 1;
-            this.buttonSetWarPlane.Text = "Посадить военный самолет";
-            this.buttonSetWarPlane.UseVisualStyleBackColor = true;
-            this.buttonSetWarPlane.Click += new System.EventHandler(this.ButtonSetWarPlane_Click);
-            // 
-            // buttonSetBomber
-            // 
-            this.buttonSetBomber.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSetBomber.Location = new System.Drawing.Point(865, 214);
-            this.buttonSetBomber.Name = "buttonSetBomber";
-            this.buttonSetBomber.Size = new System.Drawing.Size(137, 48);
-            this.buttonSetBomber.TabIndex = 2;
-            this.buttonSetBomber.Text = "Посадить бомбардировщик";
-            this.buttonSetBomber.UseVisualStyleBackColor = true;
-            this.buttonSetBomber.Click += new System.EventHandler(this.ButtonSetBomber_Click);
-            // 
             // groupBoxGetWarPlane
             // 
             this.groupBoxGetWarPlane.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -81,7 +58,7 @@
             this.groupBoxGetWarPlane.Controls.Add(this.buttonGetWarPlane);
             this.groupBoxGetWarPlane.Controls.Add(this.labelPlace);
             this.groupBoxGetWarPlane.Controls.Add(this.maskedTextBoxPlace);
-            this.groupBoxGetWarPlane.Location = new System.Drawing.Point(863, 292);
+            this.groupBoxGetWarPlane.Location = new System.Drawing.Point(863, 280);
             this.groupBoxGetWarPlane.Name = "groupBoxGetWarPlane";
             this.groupBoxGetWarPlane.Size = new System.Drawing.Size(137, 169);
             this.groupBoxGetWarPlane.TabIndex = 3;
@@ -139,16 +116,25 @@
             this.listBoxLevels.TabIndex = 5;
             this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
             // 
+            // buttonSetWarPlane
+            // 
+            this.buttonSetWarPlane.Location = new System.Drawing.Point(865, 129);
+            this.buttonSetWarPlane.Name = "buttonSetWarPlane";
+            this.buttonSetWarPlane.Size = new System.Drawing.Size(136, 38);
+            this.buttonSetWarPlane.TabIndex = 6;
+            this.buttonSetWarPlane.Text = "Заказать военный самолет";
+            this.buttonSetWarPlane.UseVisualStyleBackColor = true;
+            this.buttonSetWarPlane.Click += new System.EventHandler(this.buttonSetWarPlane_Click);
+            // 
             // FormHangar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 461);
+            this.Controls.Add(this.buttonSetWarPlane);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.labelLevels);
             this.Controls.Add(this.groupBoxGetWarPlane);
-            this.Controls.Add(this.buttonSetBomber);
-            this.Controls.Add(this.buttonSetWarPlane);
             this.Controls.Add(this.pictureBoxHangar);
             this.Name = "FormHangar";
             this.Text = "Ангар";
@@ -164,8 +150,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxHangar;
-        private System.Windows.Forms.Button buttonSetWarPlane;
-        private System.Windows.Forms.Button buttonSetBomber;
         private System.Windows.Forms.GroupBox groupBoxGetWarPlane;
         private System.Windows.Forms.PictureBox pictureBoxWarPlane;
         private System.Windows.Forms.Button buttonGetWarPlane;
@@ -173,5 +157,6 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlace;
         private System.Windows.Forms.Label labelLevels;
         private System.Windows.Forms.ListBox listBoxLevels;
+        private System.Windows.Forms.Button buttonSetWarPlane;
     }
 }

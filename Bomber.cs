@@ -26,7 +26,7 @@ namespace WindowsFormsBomber
         public bool Emblem { private set; get; }
 
         public Bomber(int maxSpeed, float weight, Color mainColor, Color dopColor, bool spire, bool bombs, bool emblem)
-             : base(maxSpeed, weight, mainColor)
+            : base(maxSpeed, weight, mainColor)
         {
             DopColor = dopColor;
             Spire = spire;
@@ -72,6 +72,14 @@ namespace WindowsFormsBomber
                     }
                 }
             }
+        }
+
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
     }
 }

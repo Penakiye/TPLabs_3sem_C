@@ -61,6 +61,12 @@
     <Compile Include="FormBomber.Designer.cs">
       <DependentUpon>FormBomber.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWarPlaneConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarPlaneConfig.Designer.cs">
+      <DependentUpon>FormWarPlaneConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hangar.cs" />
     <Compile Include="ITransport.cs" />
     <Compile Include="MultiLevelHangar.cs" />
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormHangar.resx">
       <DependentUpon>FormHangar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarPlaneConfig.resx">
+      <DependentUpon>FormWarPlaneConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
