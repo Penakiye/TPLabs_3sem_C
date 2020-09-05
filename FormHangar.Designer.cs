@@ -54,7 +54,7 @@
             this.pictureBoxHangar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBoxHangar.Location = new System.Drawing.Point(0, 24);
             this.pictureBoxHangar.Name = "pictureBoxHangar";
-            this.pictureBoxHangar.Size = new System.Drawing.Size(859, 461);
+            this.pictureBoxHangar.Size = new System.Drawing.Size(859, 437);
             this.pictureBoxHangar.TabIndex = 0;
             this.pictureBoxHangar.TabStop = false;
             // 
@@ -65,7 +65,7 @@
             this.groupBoxGetWarPlane.Controls.Add(this.buttonGetWarPlane);
             this.groupBoxGetWarPlane.Controls.Add(this.labelPlace);
             this.groupBoxGetWarPlane.Controls.Add(this.maskedTextBoxPlace);
-            this.groupBoxGetWarPlane.Location = new System.Drawing.Point(863, 292);
+            this.groupBoxGetWarPlane.Location = new System.Drawing.Point(863, 280);
             this.groupBoxGetWarPlane.Name = "groupBoxGetWarPlane";
             this.groupBoxGetWarPlane.Size = new System.Drawing.Size(137, 169);
             this.groupBoxGetWarPlane.TabIndex = 3;
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 485);
+            this.ClientSize = new System.Drawing.Size(1012, 461);
             this.Controls.Add(this.buttonSetWarPlane);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.labelLevels);
@@ -190,6 +190,7 @@
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormHangar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ангар";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHangar)).EndInit();
             this.groupBoxGetWarPlane.ResumeLayout(false);

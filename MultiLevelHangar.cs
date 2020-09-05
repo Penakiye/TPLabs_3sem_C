@@ -75,15 +75,19 @@ namespace WindowsFormsBomber
                     sw.WriteLine("Level");
                     for (int i = 0; i < countPlaces; i++)
                     {
-                        var plane = level[i];
-                        if (plane != null)
+                        try
                         {
+                            var plane = level[i];
                             //если место не пустое, то записываем тип самолета
                             if (plane.GetType().Name == "WarPlane")
                                 sw.Write(i + ":WarPlane:");
                             if (plane.GetType().Name == "Bomber")
                                 sw.Write(i + ":Bomber:");
                             sw.WriteLine(plane);
+                        }
+                        catch
+                        {
+                            break;
                         }
                     }
                 }
@@ -113,7 +117,10 @@ namespace WindowsFormsBomber
                         hangarStages.Clear();
                 }
                 else
-                    return false;
+                {
+                    //если нет такой записи, то это не те данные
+                    throw new Exception("Неверный формат файла");
+                }
                 while ((line = sr.ReadLine()) != null)
                 {
                     line.Replace("\r", "");

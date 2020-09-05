@@ -55,7 +55,9 @@ namespace WindowsFormsBomber
         public static int operator +(Hangar<T> hangar, T warPlane)
         {
             if (hangar._places.Count == hangar._maxCount)
-                return -1;
+            {
+                throw new HangarOverflowException();
+            }
             for (int i = 0; i < hangar._maxCount; i++)
                 if (hangar.CheckFreePlace(i))
                 {
@@ -81,7 +83,7 @@ namespace WindowsFormsBomber
                 hangar._places.Remove(index);
                 return warPlane;
             }
-            return null;
+            throw new HangarNotFoundException(index);
         }
 
         /// <summary>
@@ -134,7 +136,7 @@ namespace WindowsFormsBomber
             {
                 if (_places.ContainsKey(ind))
                     return _places[ind];
-                return null;
+                throw new HangarNotFoundException(ind);
             }
             set
             {
@@ -143,6 +145,10 @@ namespace WindowsFormsBomber
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5
                     * _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new HangarOccupiedPlaceException(ind);
                 }
             }
         }
