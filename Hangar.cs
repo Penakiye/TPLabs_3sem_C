@@ -1,13 +1,19 @@
-﻿using System.Drawing;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace WindowsFormsBomber
 {
     public class Hangar<T> where T : class, ITransport
     {
         /// <summary>
-        /// Массив объектов, которые храним
+        /// Словарь объектов, которые храним
         /// </summary>
-        private T[] _places;
+        private Dictionary<int, T> _places;
+        /// <summary>
+        /// Максимальное количество мест в ангаре
+        /// </summary>
+        private int _maxCount;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -33,28 +39,28 @@ namespace WindowsFormsBomber
         /// <param name="pictureHeight">Размер ангара - высота</param>
         public Hangar(int sizes, int pictureWidth, int pictureHeight)
         {
-            _places = new T[sizes];
+            _maxCount = sizes;
+            _places = new Dictionary<int, T>();
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
-            for (int i = 0; i < _places.Length; i++)
-                _places[i] = null;
         }
 
         /// <summary>
         /// Перегрузка оператора сложения
-        /// Логика действия: на парковку добавляется автомобиль
+        /// Логика действия: в ангар добавляется самолет
         /// </summary>
         /// <param name="hangar">ангар</param>
         /// <param name="warPlane">Добавляемый военный самолет</param>
         /// <returns></returns>
         public static int operator +(Hangar<T> hangar, T warPlane)
         {
-            for (int i = 0; i < hangar._places.Length; i++)
+            if (hangar._places.Count == hangar._maxCount)
+                return -1;
+            for (int i = 0; i < hangar._maxCount; i++)
                 if (hangar.CheckFreePlace(i))
                 {
-                    hangar._places[i] = warPlane;
-                    hangar._places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 5,
-                    i % 5 * _placeSizeHeight + 15, hangar.PictureWidth, hangar.PictureHeight);
+                    hangar._places.Add(i, warPlane);
+                    hangar._places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 5, i % 5 * _placeSizeHeight + 15, hangar.PictureWidth, hangar.PictureHeight);
                     return i;
                 }
             return -1;
@@ -69,24 +75,22 @@ namespace WindowsFormsBomber
         /// <returns></returns>
         public static T operator -(Hangar<T> hangar, int index)
         {
-            if (index < 0 || index > hangar._places.Length)
-                return null;
             if (!hangar.CheckFreePlace(index))
             {
                 T warPlane = hangar._places[index];
-                hangar._places[index] = null;
+                hangar._places.Remove(index);
                 return warPlane;
             }
             return null;
         }
         /// <summary>
-        /// Метод проверки заполнености парковочного места (ячейки массива)
+        /// Метод проверки заполнености парковочного места
         /// </summary>
         /// <param name="index">Номер парковочного места (порядковый номер в массиве)</param>
         /// <returns></returns>
         private bool CheckFreePlace(int index)
         {
-            return _places[index] == null;
+            return !_places.ContainsKey(index);
         }
 
         /// <summary>
@@ -96,9 +100,9 @@ namespace WindowsFormsBomber
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
-                if (!CheckFreePlace(i)) //если место не пустое
-                    _places[i].DrawWarPlane(g);
+            var keys = _places.Keys.ToList();
+            for (int i = 0; i < keys.Count; i++)
+                _places[keys[i]].DrawWarPlane(g);
         }
         /// <summary>
         /// Метод отрисовки разметки парковочных мест
@@ -107,11 +111,10 @@ namespace WindowsFormsBomber
         private void DrawMarking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
-            //границы ангара
-            g.DrawRectangle(pen, 0, 0, (_places.Length / 5) * _placeSizeWidth, 450);
-            for (int i = 0; i < _places.Length / 5; i++)
-            {
-                //отрисовываем, по 5 мест на линии
+            //границы парковки
+            g.DrawRectangle(pen, 0, 0, (_maxCount / 5) * _placeSizeWidth, 450);
+            for (int i = 0; i < _maxCount / 5; i++)
+            {//отрисовываем, по 5 мест на линии
                 for (int j = 0; j < 5; ++j)
                     g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight, i * _placeSizeWidth + 110, j * _placeSizeHeight);
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 450);
