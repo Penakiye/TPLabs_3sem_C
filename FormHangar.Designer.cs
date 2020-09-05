@@ -32,10 +32,12 @@
             this.buttonSetWarPlane = new System.Windows.Forms.Button();
             this.buttonSetBomber = new System.Windows.Forms.Button();
             this.groupBoxGetWarPlane = new System.Windows.Forms.GroupBox();
-            this.maskedTextBoxPlace = new System.Windows.Forms.MaskedTextBox();
-            this.labelPlace = new System.Windows.Forms.Label();
-            this.buttonGetWarPlane = new System.Windows.Forms.Button();
             this.pictureBoxWarPlane = new System.Windows.Forms.PictureBox();
+            this.buttonGetWarPlane = new System.Windows.Forms.Button();
+            this.labelPlace = new System.Windows.Forms.Label();
+            this.maskedTextBoxPlace = new System.Windows.Forms.MaskedTextBox();
+            this.labelLevels = new System.Windows.Forms.Label();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHangar)).BeginInit();
             this.groupBoxGetWarPlane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarPlane)).BeginInit();
@@ -53,7 +55,7 @@
             // buttonSetWarPlane
             // 
             this.buttonSetWarPlane.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSetWarPlane.Location = new System.Drawing.Point(863, 12);
+            this.buttonSetWarPlane.Location = new System.Drawing.Point(865, 160);
             this.buttonSetWarPlane.Name = "buttonSetWarPlane";
             this.buttonSetWarPlane.Size = new System.Drawing.Size(137, 48);
             this.buttonSetWarPlane.TabIndex = 1;
@@ -64,7 +66,7 @@
             // buttonSetBomber
             // 
             this.buttonSetBomber.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSetBomber.Location = new System.Drawing.Point(863, 66);
+            this.buttonSetBomber.Location = new System.Drawing.Point(865, 214);
             this.buttonSetBomber.Name = "buttonSetBomber";
             this.buttonSetBomber.Size = new System.Drawing.Size(137, 48);
             this.buttonSetBomber.TabIndex = 2;
@@ -85,22 +87,13 @@
             this.groupBoxGetWarPlane.TabIndex = 3;
             this.groupBoxGetWarPlane.TabStop = false;
             this.groupBoxGetWarPlane.Text = "Забрать самолет";
+            // pictureBoxWarPlane
             // 
-            // maskedTextBoxPlace
-            // 
-            this.maskedTextBoxPlace.Location = new System.Drawing.Point(74, 23);
-            this.maskedTextBoxPlace.Name = "maskedTextBoxPlace";
-            this.maskedTextBoxPlace.Size = new System.Drawing.Size(35, 20);
-            this.maskedTextBoxPlace.TabIndex = 0;
-            // 
-            // labelPlace
-            // 
-            this.labelPlace.AutoSize = true;
-            this.labelPlace.Location = new System.Drawing.Point(23, 27);
-            this.labelPlace.Name = "labelPlace";
-            this.labelPlace.Size = new System.Drawing.Size(45, 13);
-            this.labelPlace.TabIndex = 1;
-            this.labelPlace.Text = "Место: ";
+            this.pictureBoxWarPlane.Location = new System.Drawing.Point(9, 78);
+            this.pictureBoxWarPlane.Name = "pictureBoxWarPlane";
+            this.pictureBoxWarPlane.Size = new System.Drawing.Size(122, 80);
+            this.pictureBoxWarPlane.TabIndex = 3;
+            this.pictureBoxWarPlane.TabStop = false;
             // 
             // buttonGetWarPlane
             // 
@@ -112,19 +105,47 @@
             this.buttonGetWarPlane.UseVisualStyleBackColor = true;
             this.buttonGetWarPlane.Click += new System.EventHandler(this.ButtonGetWarPlane_Click);
             // 
-            // pictureBoxWarPlane
+            // labelPlace
             // 
-            this.pictureBoxWarPlane.Location = new System.Drawing.Point(9, 78);
-            this.pictureBoxWarPlane.Name = "pictureBoxWarPlane";
-            this.pictureBoxWarPlane.Size = new System.Drawing.Size(122, 80);
-            this.pictureBoxWarPlane.TabIndex = 3;
-            this.pictureBoxWarPlane.TabStop = false;
+            this.labelPlace.AutoSize = true;
+            this.labelPlace.Location = new System.Drawing.Point(23, 27);
+            this.labelPlace.Name = "labelPlace";
+            this.labelPlace.Size = new System.Drawing.Size(45, 13);
+            this.labelPlace.TabIndex = 1;
+            this.labelPlace.Text = "Место: ";
+            // maskedTextBoxPlace
+            // 
+            this.maskedTextBoxPlace.Location = new System.Drawing.Point(74, 23);
+            this.maskedTextBoxPlace.Name = "maskedTextBoxPlace";
+            this.maskedTextBoxPlace.Size = new System.Drawing.Size(35, 20);
+            this.maskedTextBoxPlace.TabIndex = 0;
+            // 
+            // labelLevels
+            // 
+            this.labelLevels.AutoSize = true;
+            this.labelLevels.Location = new System.Drawing.Point(911, 9);
+            this.labelLevels.Name = "labelLevels";
+            this.labelLevels.Size = new System.Drawing.Size(48, 13);
+            this.labelLevels.TabIndex = 4;
+            this.labelLevels.Text = "Уровни:";
+            // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.Location = new System.Drawing.Point(865, 28);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(136, 95);
+            this.listBoxLevels.TabIndex = 5;
+            this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
             // 
             // FormHangar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 461);
+            this.Controls.Add(this.listBoxLevels);
+            this.Controls.Add(this.labelLevels);
             this.Controls.Add(this.groupBoxGetWarPlane);
             this.Controls.Add(this.buttonSetBomber);
             this.Controls.Add(this.buttonSetWarPlane);
@@ -136,6 +157,7 @@
             this.groupBoxGetWarPlane.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarPlane)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -149,5 +171,7 @@
         private System.Windows.Forms.Button buttonGetWarPlane;
         private System.Windows.Forms.Label labelPlace;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlace;
+        private System.Windows.Forms.Label labelLevels;
+        private System.Windows.Forms.ListBox listBoxLevels;
     }
 }
