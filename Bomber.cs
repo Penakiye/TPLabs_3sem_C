@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace WindowsFormsBomber
 {
-    class Bomber : WarPlane
+    class Bomber : WarPlane, IComparable<Bomber>, IEquatable<Bomber>
     {
         /// <summary>
         /// Дополнительный цвет
@@ -114,6 +114,74 @@ namespace WindowsFormsBomber
         public override string ToString()
         {
             return base.ToString() + ";" + DopColor.Name + ";" + Spire + ";" + Bombs + ";" + Emblem;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IComparable для класса Bomber
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(Bomber other)
+        {
+            var res = (this as WarPlane).CompareTo(other as WarPlane);
+            if (res != 0)
+                return res;
+            if (DopColor != other.DopColor)
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            if (Spire != other.Spire)
+                return Spire.CompareTo(other.Spire);
+            if (Emblem != other.Emblem)
+                return Emblem.CompareTo(other.Emblem);
+            if (Bombs != other.Bombs)
+                return Bombs.CompareTo(other.Bombs);
+            return 0;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса Bomber
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Bomber other)
+        {
+            var res = (this as WarPlane).Equals(other as WarPlane);
+            if (!res)
+                return res;
+            if (GetType().Name != other.GetType().Name)
+                return false;
+            if (DopColor != other.DopColor)
+                return false;
+            if (Spire != other.Spire)
+                return false;
+            if (Emblem != other.Emblem)
+                return false;
+            if (Bombs != other.Bombs)
+                return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+                return false;
+            if (!(obj is Bomber warPlaneObj))
+                return false;
+            else
+                return Equals(warPlaneObj);
+        }
+
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
