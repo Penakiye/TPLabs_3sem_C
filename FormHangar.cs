@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,10 +19,15 @@ namespace WindowsFormsBomber
         /// Количество уровней-ангаров
         /// </summary>
         private const int countLevel = 5;
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        private Logger logger;
 
         public FormHangar()
         {
             InitializeComponent();
+            logger = LogManager.GetCurrentClassLogger();
             hangar = new MultiLevelHangar(countLevel, pictureBoxHangar.Width, pictureBoxHangar.Height);
             //заполнение listBox
             for (int i = 0; i < countLevel; i++)
@@ -53,21 +59,31 @@ namespace WindowsFormsBomber
             if (listBoxLevels.SelectedIndex > -1)
                 if (maskedTextBoxPlace.Text != "")
                 {
-                    var warPlane = hangar[listBoxLevels.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
-                    if (warPlane != null)
+                    try
                     {
+                        var warPlane = hangar[listBoxLevels.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
                         Bitmap bmp = new Bitmap(pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
                         Graphics gr = Graphics.FromImage(bmp);
                         warPlane.SetPosition(5, 5, pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
                         warPlane.DrawWarPlane(gr);
                         pictureBoxWarPlane.Image = bmp;
+                        logger.Info("Изъят самолет: " + warPlane.ToString() + " с места" + maskedTextBoxPlace.Text);
+                        Draw();
                     }
-                    else
+                    catch (HangarNotFoundException ex)
                     {
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        logger.Error(ex.Message);
                         Bitmap bmp = new Bitmap(pictureBoxWarPlane.Width, pictureBoxWarPlane.Height);
                         pictureBoxWarPlane.Image = bmp;
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        logger.Error(ex.Message);
+                    }
                 }
         }
 
@@ -96,11 +112,24 @@ namespace WindowsFormsBomber
         {
             if (warPlane != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = hangar[listBoxLevels.SelectedIndex] + warPlane;
-                if (place > -1)
+                try
+                {
+                    int place = hangar[listBoxLevels.SelectedIndex] + warPlane;
+                    logger.Info("Добавлен самолет " + warPlane.ToString() + " на место " + place);
                     Draw();
-                else
-                    MessageBox.Show("Самолет не удалось посадить");
+                }
+                catch (HangarOverflowException ex)
+                {
+                    MessageBox.Show(ex.Message, "Переполнение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error(ex.Message);
+                }
             }
         }
 
@@ -108,15 +137,18 @@ namespace WindowsFormsBomber
         {
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (hangar.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    hangar.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error(ex.Message);
                 }
             }
         }
@@ -125,15 +157,23 @@ namespace WindowsFormsBomber
         {
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (hangar.LoadData(openFileDialog.FileName))
+                try
                 {
+                    hangar.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                 }
-                else
+                catch (HangarOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error(ex.Message);
                 }
                 Draw();
             }
